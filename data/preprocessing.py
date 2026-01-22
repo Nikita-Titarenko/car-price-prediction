@@ -5,7 +5,7 @@ from sklearn.preprocessing import LabelEncoder
 UNIQUE_COLUMNS = ['Brand', "Fuel Type", "Transmission", "Condition", "Model"]
 UNNECESSARY_COLUMNS = ['Car ID']
 
-def preprocess(df):
+def preprocess_with_one_hot(df):
     one_hot_fields = pd.get_dummies(
         df[UNIQUE_COLUMNS],
         drop_first=True,
@@ -17,7 +17,7 @@ def preprocess(df):
     df = df.dropna()
     return df
 
-def preprocess2(df):
+def preprocess_with_encoders(df):
     encoder = LabelEncoder()
     for c in UNIQUE_COLUMNS:
         df[c] = encoder.fit_transform(df[c])

@@ -1,12 +1,10 @@
 import logging
 from pathlib import Path
 
-from sklearn.model_selection import train_test_split
-
-
 from data.load_data import load_data
-from data.preprocessing import preprocess, preprocess2
-from predict.predict import predict, evaluate
+from data.preprocessing import preprocess_with_encoders
+from predict.model import get_model
+from predict.predict import predict, evaluate, grid_search
 
 
 def main():
@@ -22,13 +20,12 @@ def main():
     print(df["Fuel Type"].value_counts())
     print(df["Model"].value_counts())
     print(len(df))
+    df = preprocess_with_encoders(df)
 
-    logger.info('one-hot:')
-    df = preprocess(df)
-    print(df)
     X = df.drop('Price', axis=1)
     y = df['Price']
-    evaluate(X, y)
+    model = get_model()
+    evaluate(model, X, y)
     
 
 if __name__ == "__main__":
