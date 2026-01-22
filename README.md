@@ -54,3 +54,5 @@ INFO:predict.predict:Best MAE: 23602.20677159614
 A relatively small number of trees and a limited maximum depth indicate that increasing these hyperparameters further would likely lead to overfitting, so this combination provides the lowest possible error.
 
 I also tried using TargetEncoder to replace categories with their average price, but this did not improve results: the error even increased slightly, which suggests that for a small dataset and a RandomForest model, Target Encoding does not always provide an advantage, since the trees can already handle categorical features encoded with LabelEncoder or One-Hot effectively.
+
+As a result, I obtained an RMSE of 27,209, which is quite reasonable considering the dataset is relatively small.

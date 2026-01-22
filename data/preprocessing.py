@@ -1,5 +1,5 @@
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import OrdinalEncoder
 
 
 UNIQUE_COLUMNS = ['Brand', "Fuel Type", "Transmission", "Condition", "Model"]
@@ -18,9 +18,8 @@ def preprocess_with_one_hot(df):
     return df
 
 def preprocess_with_encoders(df):
-    encoder = LabelEncoder()
-    for c in UNIQUE_COLUMNS:
-        df[c] = encoder.fit_transform(df[c])
+    ordinal_encoder = OrdinalEncoder()
+    df[UNIQUE_COLUMNS] = ordinal_encoder.fit_transform(df[UNIQUE_COLUMNS])
     df = df.drop(UNNECESSARY_COLUMNS, axis=1)
     df = df.dropna()
     return df
